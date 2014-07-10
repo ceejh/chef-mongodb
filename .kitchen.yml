@@ -73,6 +73,23 @@ suites:
     # Upstart is not starting mongodb, status script returns 0 and there are no useful logs. wat?
     - ubuntu-10.04
 
+- name: replicaset_shard
+  run_list:
+  - "recipe[chef-solo-search]"
+  - "recipe[mongodb::shard]"
+  - "recipe[mongodb::replicaset]"
+  attributes:
+    mongodb:
+      default_init_name: mongod
+      dbconfig_file: /etc/mongodb.conf
+      shard_name: kitchen
+      cluster_name: kitchen
+      config:
+        replSet: kitchen
+  excludes:
+    # Upstart is not starting mongodb, status script returns 0 and there are no useful logs. wat?
+    - ubuntu-10.04
+
 - name: configserver
   run_list:
   - "recipe[mongodb::configserver]"

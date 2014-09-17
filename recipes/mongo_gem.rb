@@ -6,6 +6,10 @@ gcc = package 'gcc' do
 end
 gcc.run_action(:install)
 
+package 'libsasl2-dev' do
+  action :nothing
+end.run_action(:install)
+
 node['mongodb']['ruby_gems'].each do |gem, version|
   chef_gem gem do
     version version
